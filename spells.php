@@ -38,7 +38,7 @@ $spell_row = <<<'END'
 			
 			<fieldset class="repeating_spellbookSPELLSHORTLEVEL">
 			<!-- BEGIN spell row -->
-			<div class="sheet-margin-bottom sheet-padr sheet-padl">
+			<div class="sheet-margin-bottom sheet-padr sheet-padl compendium-drop-target">
 				<div class="sheet-row">
 					<div class="sheet-col-1-12 sheet-vert-bottom sheet-center sheet-small-label">Spell Level</div>
 					<div class="sheet-col-1-3 sheet-vert-bottom sheet-center sheet-small-label">Spell name</div>
@@ -51,9 +51,9 @@ $spell_row = <<<'END'
 				
 				<div class="sheet-row">
 					<div class="sheet-col-1-12 sheet-vert-middle sheet-center">FRIENDLYLEVEL<input type="hidden" name="attr_spellbaselevel" value="PAGENUMBER"><input type="hidden" name="attr_spellfriendlylevel" value="FRIENDLYLEVEL"></div>	
-					<div class="sheet-col-1-3 sheet-vert-middle"><input type="text" class=" sheet-center" name="attr_spellname"></div>
+					<div class="sheet-col-1-3 sheet-vert-middle"><input type="text" class=" sheet-center" name="attr_spellname" accept="Name"></div>
 					<div class="sheet-col-1-8 sheet-vert-middle">
-						<select name="attr_spellschool">
+						<select name="attr_spellschool" accept="School">
 							<option value="" selected="selected">n/a</option>
 							<option value="Abjuration">Abjuration</option>
 							<option value="Conjuration">Conjuration</option>
@@ -65,14 +65,16 @@ $spell_row = <<<'END'
 							<option value="Transmutation">Transmutation</option>
 						</select>
 					</div>
-					<div class="sheet-col-1-6 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellcasttime"></div>
+					<div class="sheet-col-1-6 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellcasttime" accept="Casting Time"></div>
 					<div class="sheet-col-1-12 sheet-checkbox-row">
+						<input type="hidden" name="attr_spellconcentrationcompendium" accept="Concentration">
 						<select name="attr_spellconcentration">
 							<option value="" selected="selected">No</option>
 							<option value="(Concentration)">Yes</option>
 						</select>
 					</div>
 					<div class="sheet-col-1-12 sheet-checkbox-row">
+						<input type="hidden" name="attr_spellritualcompendium" accept="Ritual">
 						<select name="attr_spellritual">
 							<option value="" selected="selected">No</option>
 							<option value="(Ritual)">Yes</option>
@@ -114,10 +116,10 @@ $spell_row = <<<'END'
 							<option value="Other Source">Other</option>
 						</select>
 					</div>	
-					<div class="sheet-col-1-6 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spelltarget"></div>
-					<div class="sheet-col-1-8 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellrange"></div>
-					<div class="sheet-col-1-8 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellduration"></div>
-					<div class="sheet-col-1-8 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellcomponents"></div>
+					<div class="sheet-col-1-6 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spelltarget" accept="Target"></div>
+					<div class="sheet-col-1-8 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellrange" accept="Range"></div>
+					<div class="sheet-col-1-8 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellduration" accept="Duration"></div>
+					<div class="sheet-col-1-8 sheet-vert-middle"><input type="text" class="sheet-center" name="attr_spellcomponents" accept="Components"></div>
 					<div class="sheet-col-1-6 sheet-vert-middle sheet-center"><button type="roll" class="sheet-roll" name="roll_SpellInfo" value="&{template:5eDefault} {{spell=1}} {{spellshowinfoblock=1}} {{spellshowdesc=1}} {{spellshowhigherlvl=1}} {{character_name=@{character_name}}} {{emote=looks at the instructions for a spell}} {{title=@{spellname}}} {{subheader=@{character_name}}} {{subheaderright=@{spellschool} @{spellfriendlylevel}}} {{subheader2=@{spellconcentration} @{spellritual}}}  {{spellcasttime=@{spellcasttime}}} {{spellduration=@{spellduration}}} {{spelltarget=@{spelltarget}}} {{spellrange=@{spellrange}}} {{spellgainedfrom=@{spellgainedfrom}}} {{spellcomponents=@{spellcomponents}}}  {{spelldescription=@{spelldescription}}} {{spellhigherlevel=@{spellhighersloteffect}}} @{classactionspellinfo}">Spell Info</button></div>
 					<div class="sheet-col-1-6 sheet-vert-middle sheet-center"><button type="roll" class="sheet-roll" name="roll_SpellCast" value="&{template:5eDefault} {{spell=1}} {{title=@{spellname}}} {{subheader=@{character_name}}} {{subheaderright=@{spellschool} @{spellfriendlylevel}}} {{subheader2=@{spellconcentration} @{spellritual}}} @{spellcastmacrooptions} {{spellcasttime=@{spellcasttime}}} {{spellduration=@{spellduration}}} {{spelltarget=@{spelltarget}}} {{spellrange=@{spellrange}}} {{spellgainedfrom=@{spellgainedfrom}}} {{spellcomponents=@{spellcomponents}}}  @{classactionspellcast}">Cast Spell</button></div>
 				</div>
@@ -154,8 +156,12 @@ $spell_row = <<<'END'
 					</div>
 					
 					<div class="sheet-row">
-						<div class="sheet-col-1-2 sheet-small-label sheet-center"><textarea class="sheet-medium-textarea" name="attr_spelldescription"></textarea></div>
+						<div class="sheet-col-1-2 sheet-small-label sheet-center"><textarea class="sheet-medium-textarea" name="attr_spelldescription" accept="Content"></textarea></div>
 						<div class="sheet-col-1-2 sheet-small-label sheet-center"><textarea name="attr_spellhighersloteffect" class="sheet-medium-textarea"></textarea></div>
+						<input type="hidden" name="attr_higherspellslotdiecompendium" accept="Higher Spell Slot Die">
+						<input type="hidden" name="attr_higherspellslotdicecompendium" accept="Higher Spell Slot Dice">
+						<input type="hidden" name="attr_secondaryhigherspellslotdiecompendium" accept="Secondary Higher Spell Slot Die">
+						<input type="hidden" name="attr_secondaryhigherspellslotdicecompendium" accept="Secondary Higher Spell Slot Dice">
 					</div>
 				
 				
@@ -195,7 +201,7 @@ $spell_row = <<<'END'
 					
 					<div class="sheet-row">
 						<div class="sheet-col-1-12">
-							<select name="attr_savestat">
+							<select name="attr_savestat" accept="Save">
 								<option value="STR">STR</option>
 								<option value="DEX">DEX</option>
 								<option value="CON">CON</option>
@@ -221,10 +227,11 @@ $spell_row = <<<'END'
 							</select>
 						</div>
 						<div class="sheet-col-1-12"><input type="number" name="attr_customsavedc" value="0" min="0" step="1" title="Unless you have selected Custom in the previous field this should always be 0"></div>
-						<div class="sheet-col-1-2"><input type="text" class="sheet-center" name="attr_savesuccess"></div>
+						<div class="sheet-col-1-2"><input type="text" class="sheet-center" name="attr_savesuccess" accept="Save Success"></div>
 						
 					</div>
 				</div>
+				<input type="hidden" name="attr_statbonuscompendium" Accept="Add Casting Modifier">
 						
 				<div class="sheet-spell-type-heal">
 					<div class="sheet-row">
@@ -234,7 +241,7 @@ $spell_row = <<<'END'
 					</div>
 							
 					<div class="sheet-row">
-						<div class="sheet-col-1-3 sheet-offset-1-4 sheet-small-label sheet-center"><input type="text" class="sheet-center" name="attr_spellhealamount" value="0"></div>
+						<div class="sheet-col-1-3 sheet-offset-1-4 sheet-small-label sheet-center"><input type="text" class="sheet-center" name="attr_spellhealamount" value="0" accept="Healing"></div>
 						<div class="sheet-col-1-6 sheet-center">
 							<select name="attr_healstatbonus">
 								<option value="0">None</option>
@@ -262,7 +269,7 @@ $spell_row = <<<'END'
 							
 					<div class="sheet-row">
 						<div class=" sheet-offset-1-12 sheet-col-1-12 sheet-checkbox-row"><input type="checkbox" name="attr_spellcancrit" value="{{spellcancrit=1}} {{spellcritdamage=Additional [[@{damage}]] damage}}" checked="checked"/></div>
-						<div class="sheet-col-1-6 sheet-small-label sheet-center"><input type="text" class="sheet-center" name="attr_damage" value="0"></div>
+						<div class="sheet-col-1-6 sheet-small-label sheet-center"><input type="text" class="sheet-center" name="attr_damage" value="0" accept="Damage"></div>
 						<div class="sheet-col-1-6">
 							<select name="attr_damagestatbonus">
 								<option value="0">None</option>
@@ -275,7 +282,7 @@ $spell_row = <<<'END'
 							</select>
 						</div>
 						<div class="sheet-col-1-6 sheet-small-label sheet-center"><input type="number" class="sheet-center" name="attr_damagemiscbonus" value="0" step="1"></div>
-						<div class="sheet-col-1-6 sheet-small-label sheet-center"><input type="text" class="sheet-center" name="attr_damagetype"></div>
+						<div class="sheet-col-1-6 sheet-small-label sheet-center"><input type="text" class="sheet-center" name="attr_damagetype" accept="Damage Type"></div>
 						
 					</div>
 				</div>
@@ -287,6 +294,8 @@ $spell_row = <<<'END'
 					</div>
 							
 					<div class="sheet-row">
+						<input type="hidden" name="attr_secondarydamagecompendium" accept="Secondary Damage">
+						<input type="hidden" name="attr_secondarydamagetypecompendium" accept="Secondary Damage Type">
 						<div class="sheet-col-1 sheet-small-label sheet-center"><textarea name="attr_spelleffect" class="sheet-medium-textarea">None</textarea></div>
 					</div>
 				</div>
